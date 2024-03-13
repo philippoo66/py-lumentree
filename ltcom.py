@@ -78,40 +78,6 @@ def get_read_request(register, length):
     return bytes(data)
 
 
-def get_write_request_40_20h():  # nur Test
-    # Modbus RTU-Adresse des Slaves (kann angepasst werden)
-    slave_address = 1
-
-    # Funktionscode für das Lesen von Registern
-    function_code = 0x10
-
-    # Datenpaket erstellen (Adresse, Funktionscode, Register und Länge)
-
-    # Slave_Addr
-    # Fct_Code
-    # Reg_Start_Addr_Hi
-    # Reg_Start_Addr_Lo
-    # Anzahl_Reg_Hi
-    # Anzahl_Reg_Lo
-    # Anzahl_Bytes (n*2)
-    # Reg0_Wert_Hi
-    # Reg0_Wert_Lo
-    #[Reg1_Wert_Hi
-    # Reg1_Wert_Lo
-    # ...]
-    # CRC_0
-    # CRC_1
-
-#    data = bytearray([slave_address, function_code, (register >> 8) & 0xFF, register & 0xFF, (length >> 8) & 0xFF, length & 0xFF])
-    # 40 schreiben auf 32 (dez)
-    data = bytearray([slave_address, function_code, 0x00, 0x28, 0x00, 0x01, 0x02, 0x00, 0x20])
-
-    # CRC berechnen und dem Datenpaket hinzufügen
-    crc_bytes = calculate_crc(data)
-    data.extend(crc_bytes)
-
-    return bytes(data)
-
 def get_write_request(register:int, value:int):
     # Modbus RTU-Adresse des Slaves (kann angepasst werden)
     slave_address = 1
